@@ -393,6 +393,111 @@ public class BlueThermalPrinterPlugin implements FlutterPlugin, ActivityAware,Me
           result.error("invalid_argument", "argument 'message' not found", null);
         }
         break;
+      case "print5Column":
+        if (arguments.containsKey("string1")) {
+          String string1 = (String) arguments.get("string1");
+          String string2 = (String) arguments.get("string2");
+          String string3 = (String) arguments.get("string3");
+          String string4 = (String) arguments.get("string4");
+          String string5 = (String) arguments.get("string5");
+          int size = (int) arguments.get("size");
+          String charset = (String) arguments.get("charset");
+          String format = (String) arguments.get("format");
+          print5Column(result, string1, string2,string3,string4,string5, size, charset,format);
+        } else {
+          result.error("invalid_argument", "argument 'message' not found", null);
+        }
+        break;
+      case "print6Column":
+        if (arguments.containsKey("string1")) {
+          String string1 = (String) arguments.get("string1");
+          String string2 = (String) arguments.get("string2");
+          String string3 = (String) arguments.get("string3");
+          String string4 = (String) arguments.get("string4");
+          String string5 = (String) arguments.get("string5");
+          String string6 = (String) arguments.get("string6");
+          int size = (int) arguments.get("size");
+          String charset = (String) arguments.get("charset");
+          String format = (String) arguments.get("format");
+          print6Column(result, string1, string2,string3,string4,string5,string6, size, charset,format);
+        } else {
+          result.error("invalid_argument", "argument 'message' not found", null);
+        }
+        break;
+      case "print7Column":
+        if (arguments.containsKey("string1")) {
+          String string1 = (String) arguments.get("string1");
+          String string2 = (String) arguments.get("string2");
+          String string3 = (String) arguments.get("string3");
+          String string4 = (String) arguments.get("string4");
+          String string5 = (String) arguments.get("string5");
+          String string6 = (String) arguments.get("string6");
+          String string7 = (String) arguments.get("string7");
+          int size = (int) arguments.get("size");
+          String charset = (String) arguments.get("charset");
+          String format = (String) arguments.get("format");
+          print7Column(result, string1, string2,string3,string4,string5,string6,string7, size, charset,format);
+        } else {
+          result.error("invalid_argument", "argument 'message' not found", null);
+        }
+        break;
+      case "print8Column":
+        if (arguments.containsKey("string1")) {
+          String string1 = (String) arguments.get("string1");
+          String string2 = (String) arguments.get("string2");
+          String string3 = (String) arguments.get("string3");
+          String string4 = (String) arguments.get("string4");
+          String string5 = (String) arguments.get("string5");
+          String string6 = (String) arguments.get("string6");
+          String string7 = (String) arguments.get("string7");
+          String string8 = (String) arguments.get("string8");
+          int size = (int) arguments.get("size");
+          String charset = (String) arguments.get("charset");
+          String format = (String) arguments.get("format");
+          print8Column(result, string1, string2,string3,string4,string5,string6,string7,string8, size, charset,format);
+        } else {
+          result.error("invalid_argument", "argument 'message' not found", null);
+        }
+        break;
+      case "print9Column":
+        if (arguments.containsKey("string1")) {
+          String string1 = (String) arguments.get("string1");
+          String string2 = (String) arguments.get("string2");
+          String string3 = (String) arguments.get("string3");
+          String string4 = (String) arguments.get("string4");
+          String string5 = (String) arguments.get("string5");
+          String string6 = (String) arguments.get("string6");
+          String string7 = (String) arguments.get("string7");
+          String string8 = (String) arguments.get("string8");
+          String string9 = (String) arguments.get("string9");
+          int size = (int) arguments.get("size");
+          String charset = (String) arguments.get("charset");
+          String format = (String) arguments.get("format");
+          print9Column(result, string1, string2,string3,string4,string5,string6,string7,string8,string9, size, charset,format);
+        } else {
+          result.error("invalid_argument", "argument 'message' not found", null);
+        }
+        break;
+      case "print10Column":
+        if (arguments.containsKey("string1")) {
+          String string1 = (String) arguments.get("string1");
+          String string2 = (String) arguments.get("string2");
+          String string3 = (String) arguments.get("string3");
+          String string4 = (String) arguments.get("string4");
+          String string5 = (String) arguments.get("string5");
+          String string6 = (String) arguments.get("string6");
+          String string7 = (String) arguments.get("string7");
+          String string8 = (String) arguments.get("string8");
+          String string9 = (String) arguments.get("string9");
+          String string10 = (String) arguments.get("string10");
+          int size = (int) arguments.get("size");
+          String charset = (String) arguments.get("charset");
+          String format = (String) arguments.get("format");
+          print10Column(result, string1, string2,string3,string4,string5,string6,string7,string8,string9,string10, size, charset,format);
+        } else {
+          result.error("invalid_argument", "argument 'message' not found", null);
+        }
+        break;
       default:
         result.notImplemented();
         break;
@@ -787,6 +892,288 @@ public class BlueThermalPrinterPlugin implements FlutterPlugin, ActivityAware,Me
       String line = String.format("%-8s %7s %7s %7s %n", msg1, msg2,msg3,msg4);
       if(format != null) {
         line = String.format(format, msg1, msg2,msg3,msg4);
+      }
+      if(charset != null) {
+        THREAD.write(line.getBytes(charset));
+      } else {
+        THREAD.write(line.getBytes());
+      }
+      result.success(true);
+    } catch (Exception ex) {
+      Log.e(TAG, ex.getMessage(), ex);
+      result.error("write_error", ex.getMessage(), exceptionToString(ex));
+    }
+
+  }
+
+private void print5Column(Result result, String msg1, String msg2,String msg3,String msg4,String msg5, int size, String charset, String format) {
+    byte[] cc = new byte[] { 0x1B, 0x21, 0x03 }; // 0- normal size text
+    // byte[] cc1 = new byte[]{0x1B,0x21,0x00}; // 0- normal size text
+    byte[] bb = new byte[] { 0x1B, 0x21, 0x08 }; // 1- only bold text
+    byte[] bb2 = new byte[] { 0x1B, 0x21, 0x20 }; // 2- bold with medium text
+    byte[] bb3 = new byte[] { 0x1B, 0x21, 0x10 }; // 3- bold with large text
+    byte[] bb4 = new byte[] { 0x1B, 0x21, 0x30 }; // 4- strong text
+    if (THREAD == null) {
+      result.error("write_error", "not connected", null);
+      return;
+    }
+    try {
+      switch (size) {
+        case 0:
+          THREAD.write(cc);
+          break;
+        case 1:
+          THREAD.write(bb);
+          break;
+        case 2:
+          THREAD.write(bb2);
+          break;
+        case 3:
+          THREAD.write(bb3);
+          break;
+        case 4:
+          THREAD.write(bb4);
+          break;
+      }
+      THREAD.write(PrinterCommands.ESC_ALIGN_CENTER);
+      String line = String.format("%-8s %7s %7s %7s %7s %n", msg1, msg2,msg3,msg4,msg5);
+      if(format != null) {
+        line = String.format(format, msg1, msg2,msg3,msg4,msg5);
+      }
+      if(charset != null) {
+        THREAD.write(line.getBytes(charset));
+      } else {
+        THREAD.write(line.getBytes());
+      }
+      result.success(true);
+    } catch (Exception ex) {
+      Log.e(TAG, ex.getMessage(), ex);
+      result.error("write_error", ex.getMessage(), exceptionToString(ex));
+    }
+
+  }
+
+  private void print6Column(Result result, String msg1, String msg2,String msg3,String msg4,String msg5,String msg6, int size, String charset, String format) {
+    byte[] cc = new byte[] { 0x1B, 0x21, 0x03 }; // 0- normal size text
+    // byte[] cc1 = new byte[]{0x1B,0x21,0x00}; // 0- normal size text
+    byte[] bb = new byte[] { 0x1B, 0x21, 0x08 }; // 1- only bold text
+    byte[] bb2 = new byte[] { 0x1B, 0x21, 0x20 }; // 2- bold with medium text
+    byte[] bb3 = new byte[] { 0x1B, 0x21, 0x10 }; // 3- bold with large text
+    byte[] bb4 = new byte[] { 0x1B, 0x21, 0x30 }; // 4- strong text
+    if (THREAD == null) {
+      result.error("write_error", "not connected", null);
+      return;
+    }
+    try {
+      switch (size) {
+        case 0:
+          THREAD.write(cc);
+          break;
+        case 1:
+          THREAD.write(bb);
+          break;
+        case 2:
+          THREAD.write(bb2);
+          break;
+        case 3:
+          THREAD.write(bb3);
+          break;
+        case 4:
+          THREAD.write(bb4);
+          break;
+      }
+      THREAD.write(PrinterCommands.ESC_ALIGN_CENTER);
+      String line = String.format("%2s %-12s %7s %7s %7s %7s %n", msg1, msg2,msg3,msg4,msg5,msg6);
+      if(format != null) {
+        line = String.format(format, msg1, msg2,msg3,msg4,msg5,msg6);
+      }
+      if(charset != null) {
+        THREAD.write(line.getBytes(charset));
+      } else {
+        THREAD.write(line.getBytes());
+      }
+      result.success(true);
+    } catch (Exception ex) {
+      Log.e(TAG, ex.getMessage(), ex);
+      result.error("write_error", ex.getMessage(), exceptionToString(ex));
+    }
+
+  }
+
+  private void print7Column(Result result, String msg1, String msg2,String msg3,String msg4,String msg5,String msg6,String msg7, int size, String charset, String format) {
+    byte[] cc = new byte[] { 0x1B, 0x21, 0x03 }; // 0- normal size text
+    // byte[] cc1 = new byte[]{0x1B,0x21,0x00}; // 0- normal size text
+    byte[] bb = new byte[] { 0x1B, 0x21, 0x08 }; // 1- only bold text
+    byte[] bb2 = new byte[] { 0x1B, 0x21, 0x20 }; // 2- bold with medium text
+    byte[] bb3 = new byte[] { 0x1B, 0x21, 0x10 }; // 3- bold with large text
+    byte[] bb4 = new byte[] { 0x1B, 0x21, 0x30 }; // 4- strong text
+    if (THREAD == null) {
+      result.error("write_error", "not connected", null);
+      return;
+    }
+    try {
+      switch (size) {
+        case 0:
+          THREAD.write(cc);
+          break;
+        case 1:
+          THREAD.write(bb);
+          break;
+        case 2:
+          THREAD.write(bb2);
+          break;
+        case 3:
+          THREAD.write(bb3);
+          break;
+        case 4:
+          THREAD.write(bb4);
+          break;
+      }
+      THREAD.write(PrinterCommands.ESC_ALIGN_CENTER);
+      String line = String.format("%2s %-16s %7s %7s %6s %7s %7s %n", msg1, msg2,msg3,msg4,msg5,msg6,msg7);
+      if(format != null) {
+        line = String.format(format, msg1, msg2,msg3,msg4,msg5,msg6,msg7);
+      }
+      if(charset != null) {
+        THREAD.write(line.getBytes(charset));
+      } else {
+        THREAD.write(line.getBytes());
+      }
+      result.success(true);
+    } catch (Exception ex) {
+      Log.e(TAG, ex.getMessage(), ex);
+      result.error("write_error", ex.getMessage(), exceptionToString(ex));
+    }
+
+  }
+
+  private void print8Column(Result result, String msg1, String msg2,String msg3,String msg4,String msg5,String msg6,String msg7,String msg8, int size, String charset, String format) {
+    byte[] cc = new byte[] { 0x1B, 0x21, 0x03 }; // 0- normal size text
+    // byte[] cc1 = new byte[]{0x1B,0x21,0x00}; // 0- normal size text
+    byte[] bb = new byte[] { 0x1B, 0x21, 0x08 }; // 1- only bold text
+    byte[] bb2 = new byte[] { 0x1B, 0x21, 0x20 }; // 2- bold with medium text
+    byte[] bb3 = new byte[] { 0x1B, 0x21, 0x10 }; // 3- bold with large text
+    byte[] bb4 = new byte[] { 0x1B, 0x21, 0x30 }; // 4- strong text
+    if (THREAD == null) {
+      result.error("write_error", "not connected", null);
+      return;
+    }
+    try {
+      switch (size) {
+        case 0:
+          THREAD.write(cc);
+          break;
+        case 1:
+          THREAD.write(bb);
+          break;
+        case 2:
+          THREAD.write(bb2);
+          break;
+        case 3:
+          THREAD.write(bb3);
+          break;
+        case 4:
+          THREAD.write(bb4);
+          break;
+      }
+      THREAD.write(PrinterCommands.ESC_ALIGN_CENTER);
+      String line = String.format("%2s %-16s %7s %7s %6s %6s %7s %7s %n", msg1, msg2,msg3,msg4,msg5,msg6,msg7,msg8);
+      if(format != null) {
+        line = String.format(format, msg1, msg2,msg3,msg4,msg5,msg6,msg7,msg8);
+      }
+      if(charset != null) {
+        THREAD.write(line.getBytes(charset));
+      } else {
+        THREAD.write(line.getBytes());
+      }
+      result.success(true);
+    } catch (Exception ex) {
+      Log.e(TAG, ex.getMessage(), ex);
+      result.error("write_error", ex.getMessage(), exceptionToString(ex));
+    }
+
+  }
+
+  private void print9Column(Result result, String msg1, String msg2,String msg3,String msg4,String msg5,String msg6,String msg7,String msg8,String msg9, int size, String charset, String format) {
+    byte[] cc = new byte[] { 0x1B, 0x21, 0x03 }; // 0- normal size text
+    // byte[] cc1 = new byte[]{0x1B,0x21,0x00}; // 0- normal size text
+    byte[] bb = new byte[] { 0x1B, 0x21, 0x08 }; // 1- only bold text
+    byte[] bb2 = new byte[] { 0x1B, 0x21, 0x20 }; // 2- bold with medium text
+    byte[] bb3 = new byte[] { 0x1B, 0x21, 0x10 }; // 3- bold with large text
+    byte[] bb4 = new byte[] { 0x1B, 0x21, 0x30 }; // 4- strong text
+    if (THREAD == null) {
+      result.error("write_error", "not connected", null);
+      return;
+    }
+    try {
+      switch (size) {
+        case 0:
+          THREAD.write(cc);
+          break;
+        case 1:
+          THREAD.write(bb);
+          break;
+        case 2:
+          THREAD.write(bb2);
+          break;
+        case 3:
+          THREAD.write(bb3);
+          break;
+        case 4:
+          THREAD.write(bb4);
+          break;
+      }
+      THREAD.write(PrinterCommands.ESC_ALIGN_CENTER);
+      String line = String.format("%2s %-18s %7s %7s %6s %6s %6s %7s %7s %n", msg1, msg2,msg3,msg4,msg5,msg6,msg7,msg8,msg9);
+      if(format != null) {
+        line = String.format(format, msg1, msg2,msg3,msg4,msg5,msg6,msg7,msg8,msg9);
+      }
+      if(charset != null) {
+        THREAD.write(line.getBytes(charset));
+      } else {
+        THREAD.write(line.getBytes());
+      }
+      result.success(true);
+    } catch (Exception ex) {
+      Log.e(TAG, ex.getMessage(), ex);
+      result.error("write_error", ex.getMessage(), exceptionToString(ex));
+    }
+
+  }
+
+  private void print10Column(Result result, String msg1, String msg2,String msg3,String msg4,String msg5,String msg6,String msg7,String msg8,String msg9,String msg10, int size, String charset, String format) {
+    byte[] cc = new byte[] { 0x1B, 0x21, 0x03 }; // 0- normal size text
+    // byte[] cc1 = new byte[]{0x1B,0x21,0x00}; // 0- normal size text
+    byte[] bb = new byte[] { 0x1B, 0x21, 0x08 }; // 1- only bold text
+    byte[] bb2 = new byte[] { 0x1B, 0x21, 0x20 }; // 2- bold with medium text
+    byte[] bb3 = new byte[] { 0x1B, 0x21, 0x10 }; // 3- bold with large text
+    byte[] bb4 = new byte[] { 0x1B, 0x21, 0x30 }; // 4- strong text
+    if (THREAD == null) {
+      result.error("write_error", "not connected", null);
+      return;
+    }
+    try {
+      switch (size) {
+        case 0:
+          THREAD.write(cc);
+          break;
+        case 1:
+          THREAD.write(bb);
+          break;
+        case 2:
+          THREAD.write(bb2);
+          break;
+        case 3:
+          THREAD.write(bb3);
+          break;
+        case 4:
+          THREAD.write(bb4);
+          break;
+      }
+      THREAD.write(PrinterCommands.ESC_ALIGN_CENTER);
+      String line = String.format("%2s %-20s %7s %7s %6s %6s %6s %6s %7s %7s %n", msg1, msg2,msg3,msg4,msg5,msg6,msg7,msg8,msg9,msg10);
+      if(format != null) {
+        line = String.format(format, msg1, msg2,msg3,msg4,msg5,msg6,msg7,msg8,msg9,msg10);
       }
       if(charset != null) {
         THREAD.write(line.getBytes(charset));

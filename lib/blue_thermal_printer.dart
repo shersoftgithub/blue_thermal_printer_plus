@@ -166,6 +166,149 @@ class BlueThermalPrinter {
         'charset': charset,
         'format': format
       });
+
+  ///print5Column(String string1, String string2, String string3,String string4,String string5, int size,{String? charset, String? format})
+  Future<dynamic> print5Column(String string1, String string2, String string3,
+          String string4, String string5, int size,
+          {String? charset, String? format}) =>
+      _channel.invokeMethod('print5Column', {
+        'string1': string1,
+        'string2': string2,
+        'string3': string3,
+        'string4': string4,
+        'string5': string5,
+        'size': size,
+        'charset': charset,
+        'format': format
+      });
+
+  ///print6Column(String string1, String string2, String string3,String string4,String string5,String string6, int size,{String? charset, String? format})
+  Future<dynamic> print6Column(String string1, String string2, String string3,
+          String string4, String string5, String string6, int size,
+          {String? charset, String? format}) =>
+      _channel.invokeMethod('print6Column', {
+        'string1': string1,
+        'string2': string2,
+        'string3': string3,
+        'string4': string4,
+        'string5': string5,
+        'string6': string6,
+        'size': size,
+        'charset': charset,
+        'format': format
+      });
+
+  ///print7Column(String string1, String string2, String string3,String string4,String string5,String string6,String string7, int size,{String? charset, String? format})
+  Future<dynamic> print7Column(
+          String string1,
+          String string2,
+          String string3,
+          String string4,
+          String string5,
+          String string6,
+          String string7,
+          int size,
+          {String? charset,
+          String? format}) =>
+      _channel.invokeMethod('print7Column', {
+        'string1': string1,
+        'string2': string2,
+        'string3': string3,
+        'string4': string4,
+        'string5': string5,
+        'string6': string6,
+        'string7': string7,
+        'size': size,
+        'charset': charset,
+        'format': format
+      });
+
+  ///print8Column(String string1, String string2, String string3,String string4,String string5,String string6,String string7,String string8, int size,{String? charset, String? format})
+  Future<dynamic> print8Column(
+          String string1,
+          String string2,
+          String string3,
+          String string4,
+          String string5,
+          String string6,
+          String string7,
+          String string8,
+          int size,
+          {String? charset,
+          String? format}) =>
+      _channel.invokeMethod('print8Column', {
+        'string1': string1,
+        'string2': string2,
+        'string3': string3,
+        'string4': string4,
+        'string5': string5,
+        'string6': string6,
+        'string7': string7,
+        'string8': string8,
+        'size': size,
+        'charset': charset,
+        'format': format
+      });
+
+  ///print9Column(String string1, String string2, String string3,String string4,String string5,String string6,String string7,String string8,String string9, int size,{String? charset, String? format})
+  Future<dynamic> print9Column(
+          String string1,
+          String string2,
+          String string3,
+          String string4,
+          String string5,
+          String string6,
+          String string7,
+          String string8,
+          String string9,
+          int size,
+          {String? charset,
+          String? format}) =>
+      _channel.invokeMethod('print9Column', {
+        'string1': string1,
+        'string2': string2,
+        'string3': string3,
+        'string4': string4,
+        'string5': string5,
+        'string6': string6,
+        'string7': string7,
+        'string8': string8,
+        'string9': string9,
+        'size': size,
+        'charset': charset,
+        'format': format
+      });
+
+  ///print10Column(String string1, String string2, String string3,String string4,String string5,String string6,String string7,String string8,String string9,String string10, int size,{String? charset, String? format})
+  Future<dynamic> print10Column(
+          String string1,
+          String string2,
+          String string3,
+          String string4,
+          String string5,
+          String string6,
+          String string7,
+          String string8,
+          String string9,
+          String string10,
+          int size,
+          {String? charset,
+          String? format}) =>
+      _channel.invokeMethod('print10Column', {
+        'string1': string1,
+        'string2': string2,
+        'string3': string3,
+        'string4': string4,
+        'string5': string5,
+        'string6': string6,
+        'string7': string7,
+        'string8': string8,
+        'string9': string9,
+        'string10': string10,
+        'size': size,
+        'charset': charset,
+        'format': format
+      });
 }
 
 class BluetoothDevice {
