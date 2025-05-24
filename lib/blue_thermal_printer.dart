@@ -2,6 +2,66 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:flutter/services.dart';
+class ArabicShaper {
+  static const Map<String, List<String>> arabicForms = {
+    "ا": ["ا", "ﺎ", "ﺎ", "ﺎ"],
+    "ب": ["ب", "ﺑ", "ﺒ", "ﺒ"],
+    "ت": ["ت", "ﺗ", "ﺘ", "ﺘ"],
+    "ث": ["ث", "ﺛ", "ﺜ", "ﺜ"],
+    "ج": ["ج", "ﺟ", "ﺠ", "ﺠ"],
+    "ح": ["ح", "ﺣ", "ﺤ", "ﺤ"],
+    "خ": ["خ", "ﺧ", "ﺨ", "ﺨ"],
+    "د": ["د", "ﺪ", "ﺪ", "ﺪ"],
+    "ذ": ["ذ", "ﺬ", "ﺬ", "ﺬ"],
+    "ر": ["ر", "ﺮ", "ﺮ", "ﺮ"],
+    "ز": ["ز", "ﺰ", "ﺰ", "ﺰ"],
+    "س": ["س", "ﺳ", "ﺴ", "ﺴ"],
+    "ش": ["ش", "ﺷ", "ﺸ", "ﺸ"],
+    "ص": ["ص", "ﺻ", "ﺼ", "ﺼ"],
+    "ض": ["ض", "ﺿ", "ﻀ", "ﻀ"],
+    "ط": ["ط", "ﻃ", "ﻄ", "ﻄ"],
+    "ظ": ["ظ", "ﻇ", "ﻈ", "ﻈ"],
+    "ع": ["ع", "ﻋ", "ﻌ", "ﻌ"],
+    "غ": ["غ", "ﻏ", "ﻐ", "ﻐ"],
+    "ف": ["ف", "ﻓ", "ﻔ", "ﻔ"],
+    "ق": ["ق", "ﻗ", "ﻘ", "ﻘ"],
+    "ك": ["ك", "ﻛ", "ﻜ", "ﻜ"],
+    "ل": ["ل", "ﻟ", "ﻠ", "ﻠ"],
+    "م": ["م", "ﻣ", "ﻤ", "ﻤ"],
+    "ن": ["ن", "ﻧ", "ﻨ", "ﻨ"],
+    "ه": ["ه", "ﻫ", "ﻬ", "ﻬ"],
+    "و": ["و", "ﻮ", "ﻮ", "ﻮ"],
+    "ي": ["ي", "ﻳ", "ﻴ", "ﻴ"],
+  };
+
+  static String shapeArabic(String text) {
+    String shapedText = "";
+
+    for (int i = 0; i < text.length; i++) {
+      String char = text[i];
+
+      if (arabicForms.containsKey(char)) {
+        bool hasPrev = i > 0 && arabicForms.containsKey(text[i - 1]);
+        bool hasNext = i < text.length - 1 && arabicForms.containsKey(text[i + 1]);
+
+        if (!hasPrev && !hasNext) {
+          shapedText += arabicForms[char]![0]; // Isolated form
+        } else if (hasPrev && hasNext) {
+          shapedText += arabicForms[char]![2]; // Medial form
+        } else if (hasPrev) {
+          shapedText += arabicForms[char]![3]; // Final form
+        } else {
+          shapedText += arabicForms[char]![1]; // Initial form
+        }
+      } else {
+        shapedText += char; // Non-Arabic characters stay the same
+      }
+    }
+
+    return shapedText;
+  }
+}
+
 
 class BlueThermalPrinter {
   static const int STATE_OFF = 10;
@@ -99,6 +159,13 @@ class BlueThermalPrinter {
         'charset': charset
       });
 
+    void printArabicText() {
+  String arabicText = "مرحبا بكم في المتجر";
+  String shapedText = ArabicShaper.shapeArabic(arabicText); // Fix Arabic shaping
+
+  // bluetooth.printCustom(shapedText, Enu.Size.medium.val, Enu.Align.center.val);
+}     
+
   ///printNewLine()
   Future<dynamic> printNewLine() => _channel.invokeMethod('printNewLine');
 
@@ -128,6 +195,7 @@ class BlueThermalPrinter {
         'height': height,
         'align': align
       });
+   
 
   ///printLeftRight(String string1, String string2, int size,{String? charset, String? format})
   Future<dynamic> printLeftRight(String string1, String string2, int size,
